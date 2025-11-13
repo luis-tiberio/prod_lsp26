@@ -1,8 +1,6 @@
-name: Reporte HxH
+name: Reporte HxH - LSP26
 
 on:
-  schedule:
-    - cron: '10 * * * *'  # Executa todo horário cheio + 30 min (ex: 01:30, 02:30...)
   workflow_dispatch:      # Permite rodar manualmente pelo GitHub
 
 jobs:
@@ -33,4 +31,7 @@ jobs:
           GCP_JSON_BASE64: ${{ secrets.GCP_JSON_BASE64 }}
 
       - name: ▶️ Executar script Python
-        run: python main.py
+        run: xvfb-run python main.py
+        env: # <--- ALTERAÇÃO ADICIONADA AQUI
+          OPS_ID: ${{ secrets.OPS_ID }}
+          OPS_SENHA: ${{ secrets.OPS_SENHA }}      
